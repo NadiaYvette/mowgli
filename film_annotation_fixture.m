@@ -7,6 +7,7 @@
 :- import_module list.
 
 :- func observations = list(film_episode.observation).
+:- func relations = list(film_episode.observation_relation).
 
 :- implementation.
 
@@ -14,6 +15,11 @@ observations = [
     film_episode.observation("o1", 0, 12000, visual, "confined industrial interior", 0.97999999999999998, "annotator:fixture"),
     film_episode.observation("o2", 0, 12000, audio, "continuous industrial drone", 0.95999999999999996, "annotator:fixture"),
     film_episode.observation("o3", 13000, 19000, visual, "small domestic room with bodily imagery", 0.91000000000000003, "annotator:fixture")
+].
+
+relations = [
+    film_episode.observation_relation("o1", before, "o3", 0.98999999999999999, "derived:intervals"),
+    film_episode.observation_relation("o2", synchronized_with, "o1", 0.93000000000000005, "annotator:fixture")
 ].
 
 :- end_module film_annotation_fixture.

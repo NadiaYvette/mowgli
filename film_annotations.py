@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Validate and normalize timestamped film observations.
-
-The JSONL boundary is intentionally modest: one observation object per line.
-It preserves model/annotator provenance while rejecting malformed records before
-anything is projected into the typed Mercury episode model.
-"""
+"""Validate film observations and relations, then generate Mercury fixtures."""
 
 from __future__ import annotations
 
@@ -15,6 +10,15 @@ from dataclasses import dataclass
 from typing import Any, Iterable, TextIO
 
 CHANNELS = {"visual", "audio", "dialogue", "music", "editing", "context"}
+RELATIONS = {
+    "before",
+    "after",
+    "overlaps",
+    "during",
+    "synchronized_with",
+    "contrasts_with",
+    "recurs_after",
+}
 
 
 @dataclass(frozen=True)
@@ -29,11 +33,31 @@ class FilmObservation:
 
     def to_dict(self) -> dict[str, Any]:
         return {
+            "kind": "observation",
             "id": self.observation_id,
             "start_ms": self.start_ms,
             "end_ms": self.end_ms,
             "channel": self.channel,
             "content": self.content,
+            "confidence": self.confidence,
+            "provenance": self.provenance,
+        }
+
+
+@dataclass(frozen=True)
+class FilmRelation:
+    source_id: str
+    relation: str
+    target_id: str
+    confidence: float
+    provenance: str
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "kind": "relation",
+            "source": self.source_id,
+            "relation": self.relation,
+            "target": self.target_id,
             "confidence": self.confidence,
             "provenance": self.provenance,
         }
@@ -56,23 +80,25 @@ def _confidence(value: Any) -> float:
     return result
 
 
+def _text(record: dict[str, Any], field: str, non_empty: bool = True) -> str:
+    value = record.get(field)
+    if not isinstance(value, str) or (non_empty and not value):
+        suffix = "non-empty " if non_empty else ""
+        raise ValueError(f"{field} must be a {suffix}string")
+    return value
+
+
 def normalize_observation(record: dict[str, Any]) -> FilmObservation:
     required = {"id", "start_ms", "end_ms", "channel", "content", "confidence", "provenance"}
     missing = required - record.keys()
     if missing:
         raise ValueError(f"missing fields: {', '.join(sorted(missing))}")
-    observation_id = record["id"]
+    observation_id = _text(record, "id")
     channel = record["channel"]
-    content = record["content"]
-    provenance = record["provenance"]
-    if not isinstance(observation_id, str) or not observation_id:
-        raise ValueError("id must be a non-empty string")
     if channel not in CHANNELS:
         raise ValueError(f"channel must be one of: {', '.join(sorted(CHANNELS))}")
-    if not isinstance(content, str):
-        raise ValueError("content must be a string")
-    if not isinstance(provenance, str) or not provenance:
-        raise ValueError("provenance must be a non-empty string")
+    content = _text(record, "content", non_empty=False)
+    provenance = _text(record, "provenance")
     start_ms = _number(record["start_ms"], "start_ms")
     end_ms = _number(record["end_ms"], "end_ms")
     if start_ms < 0 or end_ms < start_ms:
@@ -83,9 +109,28 @@ def normalize_observation(record: dict[str, Any]) -> FilmObservation:
     )
 
 
-def read_jsonl(stream: Iterable[str]) -> list[FilmObservation]:
+def normalize_relation(record: dict[str, Any]) -> FilmRelation:
+    required = {"source", "relation", "target", "confidence", "provenance"}
+    missing = required - record.keys()
+    if missing:
+        raise ValueError(f"missing relation fields: {', '.join(sorted(missing))}")
+    source_id = _text(record, "source")
+    relation = record["relation"]
+    if relation not in RELATIONS:
+        raise ValueError(f"relation must be one of: {', '.join(sorted(RELATIONS))}")
+    target_id = _text(record, "target")
+    if source_id == target_id:
+        raise ValueError("relation endpoints must have different IDs")
+    return FilmRelation(
+        source_id, relation, target_id,
+        _confidence(record["confidence"]), _text(record, "provenance"),
+    )
+
+
+def read_annotations(stream: Iterable[str]) -> tuple[list[FilmObservation], list[FilmRelation]]:
     observations: list[FilmObservation] = []
-    seen: set[str] = set()
+    relations: list[FilmRelation] = []
+    seen_ids: set[str] = set()
     for line_number, line in enumerate(stream, 1):
         if not line.strip() or line.lstrip().startswith("#"):
             continue
@@ -93,13 +138,34 @@ def read_jsonl(stream: Iterable[str]) -> list[FilmObservation]:
             record = json.loads(line)
             if not isinstance(record, dict):
                 raise ValueError("record must be a JSON object")
-            observation = normalize_observation(record)
-            if observation.observation_id in seen:
-                raise ValueError(f"duplicate id: {observation.observation_id}")
-            seen.add(observation.observation_id)
-            observations.append(observation)
+            kind = record.get("kind", "observation")
+            if kind == "observation":
+                observation = normalize_observation(record)
+                if observation.observation_id in seen_ids:
+                    raise ValueError(f"duplicate id: {observation.observation_id}")
+                seen_ids.add(observation.observation_id)
+                observations.append(observation)
+            elif kind == "relation":
+                relations.append(normalize_relation(record))
+            else:
+                raise ValueError("kind must be observation or relation")
         except (json.JSONDecodeError, ValueError) as error:
             raise ValueError(f"line {line_number}: {error}") from error
+    known_ids = {observation.observation_id for observation in observations}
+    for relation in relations:
+        missing = {relation.source_id, relation.target_id} - known_ids
+        if missing:
+            raise ValueError(
+                f"relation references unknown observation IDs: {', '.join(sorted(missing))}"
+            )
+    return observations, relations
+
+
+def read_jsonl(stream: Iterable[str]) -> list[FilmObservation]:
+    """Backward-compatible observation-only view of a JSONL stream."""
+    observations, relations = read_annotations(stream)
+    if relations:
+        raise ValueError("relation records require read_annotations")
     return observations
 
 
@@ -107,9 +173,14 @@ def _mercury_string(value: str) -> str:
     return json.dumps(value, ensure_ascii=False)
 
 
-def generate_mercury_module(observations: list[FilmObservation], module_name: str = "film_annotation_fixture") -> str:
+def generate_mercury_module(
+    observations: list[FilmObservation],
+    module_name: str = "film_annotation_fixture",
+    relations: list[FilmRelation] | None = None,
+) -> str:
     if not module_name.replace("_", "a").isalnum() or not module_name[0].islower():
         raise ValueError("module_name must be a lowercase Mercury identifier")
+    relations = [] if relations is None else relations
     lines = [
         "% Generated by film_annotations.py; do not edit by hand.",
         f":- module {module_name}.",
@@ -120,32 +191,40 @@ def generate_mercury_module(observations: list[FilmObservation], module_name: st
         ":- import_module list.",
         "",
         ":- func observations = list(film_episode.observation).",
+        ":- func relations = list(film_episode.observation_relation).",
         "",
         ":- implementation.",
         "",
         "observations = [",
     ]
-    rendered = []
-    for observation in observations:
-        rendered.append(
-            "    film_episode.observation(%s, %d, %d, %s, %s, %.17g, %s)"
-            % (
-                _mercury_string(observation.observation_id),
-                observation.start_ms,
-                observation.end_ms,
-                observation.channel,
-                _mercury_string(observation.content),
-                observation.confidence,
-                _mercury_string(observation.provenance),
-            )
+    rendered_observations = [
+        "    film_episode.observation(%s, %d, %d, %s, %s, %.17g, %s)"
+        % (
+            _mercury_string(observation.observation_id),
+            observation.start_ms,
+            observation.end_ms,
+            observation.channel,
+            _mercury_string(observation.content),
+            observation.confidence,
+            _mercury_string(observation.provenance),
         )
-    lines.append(",\n".join(rendered))
-    lines.extend([
-        "].",
-        "",
-        f":- end_module {module_name}.",
-        "",
-    ])
+        for observation in observations
+    ]
+    lines.append(",\n".join(rendered_observations))
+    lines.extend(["].", "", "relations = ["])
+    rendered_relations = [
+        "    film_episode.observation_relation(%s, %s, %s, %.17g, %s)"
+        % (
+            _mercury_string(relation.source_id),
+            relation.relation,
+            _mercury_string(relation.target_id),
+            relation.confidence,
+            _mercury_string(relation.provenance),
+        )
+        for relation in relations
+    ]
+    lines.append(",\n".join(rendered_relations))
+    lines.extend(["] .".replace("] ", "]"), "", f":- end_module {module_name}.", ""])
     return "\n".join(lines)
 
 
@@ -157,13 +236,14 @@ def main() -> int:
     args = parser.parse_args()
     stream: TextIO
     with open(args.path, encoding="utf-8") if args.path else sys.stdin as stream:
-        observations = read_jsonl(stream)
+        observations, relations = read_annotations(stream)
     if args.mercury:
         with open(args.mercury, "w", encoding="utf-8") as output:
-            output.write(generate_mercury_module(observations, args.module))
+            output.write(generate_mercury_module(
+                observations, module_name=args.module, relations=relations))
     else:
-        for observation in observations:
-            print(json.dumps(observation.to_dict(), sort_keys=True))
+        for record in [*observations, *relations]:
+            print(json.dumps(record.to_dict(), sort_keys=True))
     return 0
 
 

@@ -2,10 +2,13 @@
 
 The film-comprehension prototype uses newline-delimited JSON as the boundary
 between audiovisual adapters and the Mercury episode model. Each non-empty,
-non-comment line is one observation:
+non-comment line is one observation or relation.
+
+## Observations
 
 ```json
 {
+  "kind": "observation",
   "id": "shot-001-audio",
   "start_ms": 12000,
   "end_ms": 18500,
@@ -16,30 +19,41 @@ non-comment line is one observation:
 }
 ```
 
-Required fields are `id`, `start_ms`, `end_ms`, `channel`, `content`,
-`confidence`, and `provenance`. Valid channels are:
+`kind` may be omitted for backward compatibility and defaults to
+`observation`. Required observation fields are `id`, `start_ms`, `end_ms`,
+`channel`, `content`, `confidence`, and `provenance`.
+
+## Relations
+
+```json
+{
+  "kind": "relation",
+  "source": "shot-001-audio",
+  "relation": "synchronized_with",
+  "target": "shot-001-visual",
+  "confidence": 0.91,
+  "provenance": "annotator:nyc"
+}
+```
+
+Valid relation kinds are:
 
 ```text
-visual, audio, dialogue, music, editing, context
+before, after, overlaps, during, synchronized_with,
+contrasts_with, recurs_after
 ```
 
-Intervals are inclusive and must satisfy `0 <= start_ms <= end_ms`.
-Confidence is a number in `[0, 1]`. IDs must be unique within one input
-stream. Lines beginning with `#` are ignored.
+Relation endpoints must refer to observation IDs in the same input stream.
+Self-relations are rejected. Relation confidence is also in `[0, 1]`.
 
-Validate or normalize a file with:
+Observation intervals are inclusive and must satisfy
+`0 <= start_ms <= end_ms`. Valid channels are `visual`, `audio`, `dialogue`,
+`music`, `editing`, and `context`. IDs must be unique within one input stream.
+Lines beginning with `#` are ignored.
 
-```bash
-python3 film_annotations.py film_annotations.jsonl
-```
+## Generate Mercury
 
-The validator is deliberately independent of model inference. Vision, ASR,
-prosody, shot detection, music analysis, and human annotation tools can all
-produce this same boundary format. `provenance` identifies the source, while
-`confidence` records uncertainty; neither is treated as truth by the logic
-layer.
-
-The current bridge generates a Mercury module after validation:
+Validate and generate a typed Mercury module with:
 
 ```bash
 python3 film_annotations.py film_annotations.jsonl \
@@ -48,7 +62,19 @@ mmc --make film_annotation_fixture_test
 ./film_annotation_fixture_test
 ```
 
-The generated module contains typed `film_episode.observation` constructors.
-It is a build artifact and should normally be regenerated, not hand-edited.
-Raw JSON parsing remains outside the logical rules until the schema and
-provenance requirements have stabilized.
+The generated module exports both:
+
+```mercury
+observations = list(film_episode.observation)
+relations = list(film_episode.observation_relation)
+```
+
+The typed episode model exposes:
+
+- `relations_for_observation/2`: all relations where an ID is either endpoint;
+- `related_observations/3`: observations connected by a selected relation kind;
+- `cross_modal_relations/1`: relations whose endpoints have different channels.
+
+The generated module is a build artifact and should normally be regenerated,
+not hand-edited. Raw JSON parsing remains outside the logical rules so model
+adapters cannot bypass schema, confidence, or provenance validation.

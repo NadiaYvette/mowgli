@@ -32,6 +32,19 @@ main(!IO) :-
     ( if SupportIds = ["o1", "o2", "o4"] then true else require.error("support IDs should resolve in reading order") ),
     CounterIds = observation_ids(contested_by(R, E)),
     ( if CounterIds = ["o5"] then true else require.error("counterevidence IDs should resolve") ),
+    Relations = episode_relations(E),
+    ( if list.length(relations_for_observation(E, "o1")) = 3 then true
+      else require.error("relation lookup should include both endpoints") ),
+    Related = related_observations(E, "o1", before),
+    ( if observation_ids(Related) = ["o3"] then true
+      else require.error("directional relation query should resolve target") ),
+    CrossModal = cross_modal_relations(E),
+    ( if list.length(CrossModal) = 2 then true
+      else require.error("cross-modal query should identify different channels") ),
+    ( if relation_kind_name(synchronized_with) = "synchronized_with" then true
+      else require.error("relation names should be stable") ),
+    ( if list.length(Relations) = 4 then true
+      else require.error("demo should contain four relations") ),
     io.write_string("film_episode_test: all checks passed\n", !IO).
 
 :- end_module film_episode_test.

@@ -21,6 +21,10 @@ main(!IO) :-
     io.write_string("\nObservations in the opening interval:\n", !IO),
     Opening = film_episode.observations_between(E, 0, 12000),
     print_observations(Opening, !IO),
+    io.write_string("\nTemporal and cross-modal relations:\n", !IO),
+    print_relations(episode_relations(E), !IO),
+    io.format("  cross-modal relation count: %d\n",
+        [i(list.length(film_episode.cross_modal_relations(E)))], !IO),
     io.write_string("\nCompeting evidence-grounded readings:\n", !IO),
     print_readings(episode_readings(E), E, !IO).
 
@@ -46,6 +50,18 @@ print_readings([R | Rs], E, !IO) :-
     io.format("    alternatives: %s\n", [s(string.join_list(", ", reading_alternatives(R)))], !IO),
     io.format("    confidence: %.2f\n", [f(reading_confidence(R))], !IO),
     print_readings(Rs, E, !IO).
+
+:- pred print_relations(list(film_episode.observation_relation)::in,
+    io::di, io::uo) is det.
+print_relations([], !IO).
+print_relations([R | Rs], !IO) :-
+    io.format("  %s -%s-> %s (confidence %.2f; %s)\n",
+        [s(film_episode.relation_source_id_of(R)),
+         s(film_episode.relation_kind_name(film_episode.relation_kind_of(R))),
+         s(film_episode.relation_target_id_of(R)),
+         f(film_episode.relation_confidence_of(R)),
+         s(film_episode.relation_provenance_of(R))], !IO),
+    print_relations(Rs, !IO).
 
 :- func join_ids(list(film_episode.observation)) = string.
 join_ids(Os) = string.join_list(", ", film_episode.observation_ids(Os)).

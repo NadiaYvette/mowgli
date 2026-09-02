@@ -1,7 +1,12 @@
 import io
 import unittest
 
-from film_annotations import normalize_observation, read_jsonl
+from film_annotations import (
+    generate_mercury_module,
+    normalize_observation,
+    read_annotations,
+    read_jsonl,
+)
 
 
 class FilmAnnotationsTest(unittest.TestCase):
@@ -13,6 +18,21 @@ class FilmAnnotationsTest(unittest.TestCase):
         ))
         self.assertEqual(observations[0].to_dict()["id"], "v1")
         self.assertEqual(observations[0].to_dict()["confidence"], 0.75)
+
+    def test_reads_relations_after_observations(self):
+        observations, relations = read_annotations(io.StringIO(
+            '{"kind":"observation","id":"v1","start_ms":0,"end_ms":2,'
+            '"channel":"visual","content":"a room","confidence":0.75,'
+            '"provenance":"human"}\n'
+            '{"kind":"observation","id":"a1","start_ms":0,"end_ms":2,'
+            '"channel":"audio","content":"a tone","confidence":0.8,'
+            '"provenance":"human"}\n'
+            '{"kind":"relation","source":"a1","relation":"synchronized_with",'
+            '"target":"v1","confidence":0.9,"provenance":"human"}\n'
+        ))
+        self.assertEqual(len(observations), 2)
+        self.assertEqual(relations[0].relation, "synchronized_with")
+        self.assertEqual(relations[0].source_id, "a1")
 
     def test_rejects_duplicate_ids(self):
         line = ('{"id":"x","start_ms":0,"end_ms":0,"channel":"audio",'
@@ -33,6 +53,32 @@ class FilmAnnotationsTest(unittest.TestCase):
                 "channel": "visual", "content": "x",
                 "confidence": 0.5, "provenance": "test",
             })
+
+    def test_rejects_relations_with_unknown_endpoints(self):
+        with self.assertRaisesRegex(ValueError, "unknown observation IDs"):
+            read_annotations(io.StringIO(
+                '{"kind":"observation","id":"v1","start_ms":0,"end_ms":1,'
+                '"channel":"visual","content":"x","confidence":0.5,'
+                '"provenance":"test"}\n'
+                '{"kind":"relation","source":"v1","relation":"before",'
+                '"target":"missing","confidence":0.5,"provenance":"test"}\n'
+            ))
+
+    def test_generates_observation_and_relation_constructors(self):
+        observations, relations = read_annotations(io.StringIO(
+            '{"kind":"observation","id":"v1","start_ms":0,"end_ms":1,'
+            '"channel":"visual","content":"x","confidence":0.5,'
+            '"provenance":"test"}\n'
+            '{"kind":"observation","id":"a1","start_ms":0,"end_ms":1,'
+            '"channel":"audio","content":"y","confidence":0.6,'
+            '"provenance":"test"}\n'
+            '{"kind":"relation","source":"a1","relation":"synchronized_with",'
+            '"target":"v1","confidence":0.7,"provenance":"test"}\n'
+        ))
+        source = generate_mercury_module(
+            observations, module_name="fixture", relations=relations)
+        self.assertIn("film_episode.observation(\"v1\"", source)
+        self.assertIn("film_episode.observation_relation(\"a1\", synchronized_with", source)
 
 
 if __name__ == "__main__":
