@@ -34,6 +34,51 @@ class FilmAnnotationsTest(unittest.TestCase):
         self.assertEqual(relations[0].relation, "synchronized_with")
         self.assertEqual(relations[0].source_id, "a1")
 
+    def test_accepts_semantically_valid_temporal_relations(self):
+        observations, relations = read_annotations(io.StringIO(
+            '{"id":"a","start_ms":0,"end_ms":4,"channel":"visual",'
+            '"content":"a","confidence":1,"provenance":"test"}\n'
+            '{"id":"b","start_ms":5,"end_ms":9,"channel":"visual",'
+            '"content":"b","confidence":1,"provenance":"test"}\n'
+            '{"id":"c","start_ms":2,"end_ms":7,"channel":"audio",'
+            '"content":"c","confidence":1,"provenance":"test"}\n'
+            '{"id":"d","start_ms":5,"end_ms":7,"channel":"music",'
+            '"content":"d","confidence":1,"provenance":"test"}\n'
+            '{"kind":"relation","source":"a","relation":"before",'
+            '"target":"b","confidence":1,"provenance":"test"}\n'
+            '{"kind":"relation","source":"a","relation":"overlaps",'
+            '"target":"c","confidence":1,"provenance":"test"}\n'
+            '{"kind":"relation","source":"d","relation":"during",'
+            '"target":"b","confidence":1,"provenance":"test"}\n'
+        ))
+        self.assertEqual(len(observations), 4)
+        self.assertEqual(len(relations), 3)
+
+    def test_rejects_temporal_contradictions(self):
+        with self.assertRaisesRegex(ValueError, "contradicts intervals"):
+            read_annotations(io.StringIO(
+                '{"id":"a","start_ms":0,"end_ms":4,"channel":"visual",'
+                '"content":"a","confidence":1,"provenance":"test"}\n'
+                '{"id":"b","start_ms":5,"end_ms":9,"channel":"visual",'
+                '"content":"b","confidence":1,"provenance":"test"}\n'
+                '{"kind":"relation","source":"a","relation":"overlaps",'
+                '"target":"b","confidence":1,"provenance":"test"}\n'
+            ))
+
+    def test_rejects_duplicate_or_inverse_relations(self):
+        records = (
+            '{"id":"a","start_ms":0,"end_ms":1,"channel":"visual",'
+            '"content":"a","confidence":1,"provenance":"test"}\n'
+            '{"id":"b","start_ms":2,"end_ms":3,"channel":"visual",'
+            '"content":"b","confidence":1,"provenance":"test"}\n'
+            '{"kind":"relation","source":"a","relation":"before",'
+            '"target":"b","confidence":1,"provenance":"test"}\n'
+            '{"kind":"relation","source":"b","relation":"after",'
+            '"target":"a","confidence":1,"provenance":"test"}\n'
+        )
+        with self.assertRaisesRegex(ValueError, "duplicate or inverse relation"):
+            read_annotations(io.StringIO(records))
+
     def test_rejects_duplicate_ids(self):
         line = ('{"id":"x","start_ms":0,"end_ms":0,"channel":"audio",'
                 '"content":"tone","confidence":1,"provenance":"test"}\n')

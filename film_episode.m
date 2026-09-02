@@ -102,6 +102,8 @@
 :- func relations_for_observation(episode, string) = list(observation_relation).
 :- func related_observations(episode, string, relation_kind) = list(observation).
 :- func cross_modal_relations(episode) = list(observation_relation).
+:- func relation_is_valid(episode, observation_relation) = bool.
+:- func all_relations_are_valid(episode) = bool.
 :- func relation_kind_name(relation_kind) = string.
 
 :- implementation.
@@ -127,7 +129,7 @@
         observation_relation("o1", before, "o3", 0.99, "derived:intervals"),
         observation_relation("o2", synchronized_with, "o1", 0.93,
             "annotator:fixture"),
-        observation_relation("o2", recurs_after, "o4", 0.81,
+        observation_relation("o4", recurs_after, "o2", 0.81,
             "annotator:fixture"),
         observation_relation("o1", contrasts_with, "o5", 0.65,
             "annotator:fixture")
@@ -237,10 +239,76 @@ find_related_ids(Kind, [R | Rs], Id, Observations) =
 cross_modal_relations(E) =
     find_cross_modal(episode_relations(E), episode_observations(E)).
 
-:- func find_cross_modal(list(observation_relation), list(observation)) = list(observation_relation).
+relation_is_valid(E, R) =
+    ( if relation_endpoints_exist(R, episode_observations(E)) = yes,
+         relation_temporally_valid(R, episode_observations(E)) = yes then
+        yes
+      else
+        no
+    ).
+
+all_relations_are_valid(E) =
+    all_relations_valid(episode_relations(E), E).
+
+:- func all_relations_valid(list(observation_relation), episode) = bool.
+all_relations_valid([], _) = yes.
+all_relations_valid([R | Rs], E) =
+    ( if relation_is_valid(E, R) = yes then
+        all_relations_valid(Rs, E)
+      else
+        no
+    ).
+
+:- func relation_endpoints_exist(observation_relation, list(observation)) = bool.
+relation_endpoints_exist(R, Observations) =
+    ( if relation_source_observation(R, Observations, _),
+         relation_target_observation(R, Observations, _) then
+        yes
+      else
+        no
+    ).
+
+:- func relation_temporally_valid(observation_relation, list(observation)) = bool.
+relation_temporally_valid(R, Observations) =
+    ( if relation_source_observation(R, Observations, Source),
+         relation_target_observation(R, Observations, Target) then
+        temporal_kind_is_valid(relation_kind_of(R), Source, Target)
+      else
+        no
+    ).
+
+:- pred relation_source_observation(observation_relation::in,
+    list(observation)::in, observation::out) is semidet.
+relation_source_observation(R, Observations, O) :-
+    find_by_id(relation_source_id_of(R), Observations) = [O | _].
+
+:- pred relation_target_observation(observation_relation::in,
+    list(observation)::in, observation::out) is semidet.
+relation_target_observation(R, Observations, O) :-
+    find_by_id(relation_target_id_of(R), Observations) = [O | _].
+
+:- func temporal_kind_is_valid(relation_kind, observation, observation) = bool.
+temporal_kind_is_valid(Kind, Source, Target) =
+    ( if Kind = before then
+        ( if observation_end(Source) < observation_start(Target) then yes else no )
+      else if Kind = after ; Kind = recurs_after then
+        ( if observation_start(Source) > observation_end(Target) then yes else no )
+      else if Kind = overlaps ; Kind = synchronized_with then
+        ( if observation_start(Source) =< observation_end(Target),
+             observation_start(Target) =< observation_end(Source) then yes else no )
+      else if Kind = during then
+        ( if observation_start(Target) =< observation_start(Source),
+             observation_end(Source) =< observation_end(Target) then yes else no )
+      else
+        yes
+    ).
+
+:- func find_cross_modal(list(observation_relation), list(observation)) =
+    list(observation_relation).
 find_cross_modal([], _) = [].
 find_cross_modal([R | Rs], Observations) =
-    ( if channels_differ(source_channel(R, Observations), target_channel(R, Observations)) = yes then
+    ( if channels_differ(source_channel(R, Observations),
+            target_channel(R, Observations)) = yes then
         [R | find_cross_modal(Rs, Observations)]
       else
         find_cross_modal(Rs, Observations)

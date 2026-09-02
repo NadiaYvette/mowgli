@@ -19,6 +19,8 @@ RELATIONS = {
     "contrasts_with",
     "recurs_after",
 }
+INVERSE_RELATIONS = {"before": "after", "after": "before"}
+SYMMETRIC_RELATIONS = {"overlaps", "synchronized_with", "contrasts_with"}
 
 
 @dataclass(frozen=True)
@@ -127,6 +129,23 @@ def normalize_relation(record: dict[str, Any]) -> FilmRelation:
     )
 
 
+def relation_is_semantically_valid(
+    relation: FilmRelation,
+    observations_by_id: dict[str, FilmObservation],
+) -> bool:
+    source = observations_by_id[relation.source_id]
+    target = observations_by_id[relation.target_id]
+    if relation.relation == "before":
+        return source.end_ms < target.start_ms
+    if relation.relation in {"after", "recurs_after"}:
+        return source.start_ms > target.end_ms
+    if relation.relation in {"overlaps", "synchronized_with"}:
+        return source.start_ms <= target.end_ms and target.start_ms <= source.end_ms
+    if relation.relation == "during":
+        return target.start_ms <= source.start_ms and source.end_ms <= target.end_ms
+    return True
+
+
 def read_annotations(stream: Iterable[str]) -> tuple[list[FilmObservation], list[FilmRelation]]:
     observations: list[FilmObservation] = []
     relations: list[FilmRelation] = []
@@ -151,13 +170,30 @@ def read_annotations(stream: Iterable[str]) -> tuple[list[FilmObservation], list
                 raise ValueError("kind must be observation or relation")
         except (json.JSONDecodeError, ValueError) as error:
             raise ValueError(f"line {line_number}: {error}") from error
-    known_ids = {observation.observation_id for observation in observations}
+    observations_by_id = {observation.observation_id: observation for observation in observations}
+    seen_relation_keys: set[tuple[str, str, str]] = set()
     for relation in relations:
-        missing = {relation.source_id, relation.target_id} - known_ids
+        missing = {relation.source_id, relation.target_id} - observations_by_id.keys()
         if missing:
             raise ValueError(
                 f"relation references unknown observation IDs: {', '.join(sorted(missing))}"
             )
+        if not relation_is_semantically_valid(relation, observations_by_id):
+            raise ValueError(
+                f"relation {relation.relation} contradicts intervals for "
+                f"{relation.source_id} and {relation.target_id}"
+            )
+        if relation.relation in SYMMETRIC_RELATIONS:
+            endpoints = tuple(sorted((relation.source_id, relation.target_id)))
+            key = (relation.relation, endpoints[0], endpoints[1])
+        elif relation.relation in INVERSE_RELATIONS:
+            endpoints = tuple(sorted((relation.source_id, relation.target_id)))
+            key = ("before-after", endpoints[0], endpoints[1])
+        else:
+            key = (relation.relation, relation.source_id, relation.target_id)
+        if key in seen_relation_keys:
+            raise ValueError(f"duplicate or inverse relation: {relation.relation}")
+        seen_relation_keys.add(key)
     return observations, relations
 
 
@@ -224,7 +260,12 @@ def generate_mercury_module(
         for relation in relations
     ]
     lines.append(",\n".join(rendered_relations))
-    lines.extend(["] .".replace("] ", "]"), "", f":- end_module {module_name}.", ""])
+    lines.extend([
+        "].",
+        "",
+        f":- end_module {module_name}.",
+        "",
+    ])
     return "\n".join(lines)
 
 

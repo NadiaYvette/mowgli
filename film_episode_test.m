@@ -16,7 +16,8 @@
 main(!IO) :-
     E = demo_episode,
     Opening = length(observations_between(E, 0, 12000)),
-    ( if Opening = 2 then true else require.error("opening interval should contain two observations") ),
+    ( if Opening = 2 then true
+      else require.error("opening interval should contain two observations") ),
     Boundary = length(observations_between(E, 12000, 13000)),
     ( if Boundary = 4 then true else require.error("touching interval boundaries should overlap") ),
     Gap = observations_between(E, 19001, 19999),
@@ -29,7 +30,8 @@ main(!IO) :-
     ( if Invalid = no then true else require.error("reversed interval should be invalid") ),
     R = list.det_head(episode_readings(E)),
     SupportIds = observation_ids(supported_by(R, E)),
-    ( if SupportIds = ["o1", "o2", "o4"] then true else require.error("support IDs should resolve in reading order") ),
+    ( if SupportIds = ["o1", "o2", "o4"] then true
+      else require.error("support IDs should resolve in reading order") ),
     CounterIds = observation_ids(contested_by(R, E)),
     ( if CounterIds = ["o5"] then true else require.error("counterevidence IDs should resolve") ),
     Relations = episode_relations(E),
@@ -45,6 +47,8 @@ main(!IO) :-
       else require.error("relation names should be stable") ),
     ( if list.length(Relations) = 4 then true
       else require.error("demo should contain four relations") ),
+    ( if all_relations_are_valid(E) = yes then true
+      else require.error("demo relations should be semantically valid") ),
     io.write_string("film_episode_test: all checks passed\n", !IO).
 
 :- end_module film_episode_test.
