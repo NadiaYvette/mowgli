@@ -1,0 +1,38 @@
+# Mercury compiler output
+Mercury/
+*.o
+*.err
+*.mh
+*.mih
+*.int
+*.int0
+*.int1
+*.int2
+*.int3
+*.int8
+*.opt
+*.trans_opt
+
+# Built demo executables
+/plp_demo
+/ctl_demo
+/tabling_demo
+/naf_demo
+/dtmc_demo
+/mm_demo
+/mmb_demo
+/mm_multi_demo
+/semiotic_demo
+/grounding_demo
+/social_mm_demo
+/control_filter_demo
+/film_episode_demo
+/film_episode_test
+/film_annotation_fixture_test
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+.venv-*/
+.env
