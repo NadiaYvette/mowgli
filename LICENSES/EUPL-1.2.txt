@@ -1,0 +1,15 @@
+European Union Public Licence 1.2
+
+SPDX-License-Identifier: EUPL-1.2
+
+MOWGLI original software is licensed under the European Union Public Licence
+1.2.
+
+Canonical English legal text:
+https://eupl.eu/1.2/en/
+
+Official EUPL website and translations:
+https://eupl.eu/
+
+This file is a reference notice; the canonical legal text at the URL above is
+authoritative. The EUPL text is not modified by MOWGLI.

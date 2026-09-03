@@ -1,6 +1,12 @@
-# Logic Sketches in Mercury
+# MOWGLI — Logic Sketches in Mercury
+
+**MOWGLI** means **Multimodal Ontology and World Grounding through Logic and Interpretation**.
 
 Ten modules exploring logic through Mercury's type system and determinism checker.
+
+See [LICENSES.md](LICENSES.md) for the category-based licensing policy and
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for external material,
+provenance, and attribution boundaries.
 
 ## Modules
 

@@ -1,0 +1,15 @@
+Creative Commons Attribution 4.0 International
+
+SPDX-License-Identifier: CC-BY-4.0
+
+MOWGLI annotations and metadata are licensed under the Creative Commons
+Attribution 4.0 International Public License.
+
+Canonical legal code:
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+License deed:
+https://creativecommons.org/licenses/by/4.0/deed.en
+
+This file is a reference notice; the canonical legal code at the URL above is
+authoritative. Creative Commons license texts are not modified by MOWGLI.

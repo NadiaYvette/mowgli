@@ -1,0 +1,10 @@
+MOWGLI is a mixed software, documentation, and annotation project.
+
+See LICENSES.md for the applicable license by artifact category:
+
+- Original software: EUPL-1.2
+- Documentation and research notes: CC-BY-SA-4.0
+- Annotations and metadata: CC-BY-4.0
+
+Third-party material is excluded unless its own license says otherwise; see
+THIRD_PARTY_NOTICES.md.
