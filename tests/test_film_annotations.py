@@ -1,5 +1,7 @@
 import io
+import json
 import unittest
+from pathlib import Path
 
 from film_annotations import (
     generate_mercury_module,
@@ -108,6 +110,21 @@ class FilmAnnotationsTest(unittest.TestCase):
                 '{"kind":"relation","source":"v1","relation":"before",'
                 '"target":"missing","confidence":0.5,"provenance":"test"}\n'
             ))
+
+    def test_meshes_candidate_fixture_is_loadable(self):
+        root = Path(__file__).parents[1]
+        with (root / "meshes_gold_scene.jsonl").open(encoding="utf-8") as stream:
+            observations, relations = read_annotations(stream)
+        with (root / "meshes_gold_scene_manifest.json").open(encoding="utf-8") as stream:
+            manifest = json.load(stream)
+        self.assertEqual(manifest["review_status"], "candidate_pending_manual_review")
+        self.assertEqual(manifest["scene_end_ms"] - manifest["scene_start_ms"], 50000)
+        self.assertEqual(len(observations), 8)
+        self.assertEqual(len(relations), 8)
+        self.assertTrue(all(
+            observation.provenance.endswith("review:pending")
+            for observation in observations
+        ))
 
     def test_generates_observation_and_relation_constructors(self):
         observations, relations = read_annotations(io.StringIO(

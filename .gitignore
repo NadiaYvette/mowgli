@@ -29,6 +29,8 @@ Mercury/
 /film_episode_demo
 /film_episode_test
 /film_annotation_fixture_test
+/meshes_gold_scene_demo
+/meshes_gold_scene_test
 
 # Python caches and local environments
 __pycache__/

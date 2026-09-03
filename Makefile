@@ -1,6 +1,6 @@
 MMC ?= mmc
 
-all: plp_demo ctl_demo tabling_demo naf_demo dtmc_demo mm_demo mmb_demo mm_multi_demo semiotic_demo grounding_demo social_mm_demo control_filter_demo film_episode_demo film_episode_test film_annotation_fixture_test
+all: plp_demo ctl_demo tabling_demo naf_demo dtmc_demo mm_demo mmb_demo mm_multi_demo semiotic_demo grounding_demo social_mm_demo control_filter_demo film_episode_demo film_episode_test film_annotation_fixture_test meshes_gold_scene_demo meshes_gold_scene_test
 
 plp_demo: plp.m semiring.m plp_demo.m
 	$(MMC) --make plp_demo
@@ -47,6 +47,12 @@ film_episode_test: film_episode.m film_episode_test.m
 film_annotation_fixture_test: film_episode.m film_annotation_fixture.m film_annotation_fixture_test.m
 	$(MMC) --make film_annotation_fixture_test
 
+meshes_gold_scene_demo: film_episode.m meshes_gold_scene_fixture.m meshes_gold_scene_demo.m
+	$(MMC) --make meshes_gold_scene_demo
+
+meshes_gold_scene_test: film_episode.m meshes_gold_scene_fixture.m meshes_gold_scene_test.m
+	$(MMC) --make meshes_gold_scene_test
+
 run: all
 	./plp_demo
 	./ctl_demo
@@ -63,9 +69,11 @@ run: all
 	./film_episode_demo
 	./film_episode_test
 	./film_annotation_fixture_test
+	./meshes_gold_scene_demo
+	./meshes_gold_scene_test
 
 clean:
 	rm -rf Mercury *.c *.o *.err *.mh *.mih
-	rm -f plp_demo ctl_demo tabling_demo naf_demo dtmc_demo mm_demo mmb_demo mm_multi_demo semiotic_demo grounding_demo social_mm_demo control_filter_demo film_episode_demo film_episode_test film_annotation_fixture_test
+	rm -f plp_demo ctl_demo tabling_demo naf_demo dtmc_demo mm_demo mmb_demo mm_multi_demo semiotic_demo grounding_demo social_mm_demo control_filter_demo film_episode_demo film_episode_test film_annotation_fixture_test meshes_gold_scene_demo meshes_gold_scene_test
 
 .PHONY: all run clean

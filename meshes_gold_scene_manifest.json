@@ -1,0 +1,20 @@
+{
+  "film": "Meshes of the Afternoon",
+  "year": 1943,
+  "scene_id": "opening-motif-candidate",
+  "annotation_file": "meshes_gold_scene.jsonl",
+  "source_filename": "Meshes of the Afternoon 1943 - Short Film directed by Maya Deren [-TPWu9gLrDs].webm",
+  "source_sha256": "77f1ce4b1e2cab980af207c955d1698ef49739dd35bb4458a31d16b5fb87f8f4",
+  "source_duration_ms": 846008,
+  "scene_start_ms": 0,
+  "scene_end_ms": 50000,
+  "timebase": "milliseconds; relative to scene_start_ms",
+  "review_status": "candidate_pending_manual_review",
+  "review_policy": "Do not promote observations or relations to gold until each item is checked against the local encode.",
+  "rights_note": "This metadata does not grant redistribution rights for the source encode, restoration, soundtrack, subtitles, or extracted frames.",
+  "notes": [
+    "The source identity is pinned by filename, duration, and SHA-256 hash.",
+    "The annotation package contains no media and is safe to version separately from the local source.",
+    "If the local encode has a different opening offset, change scene_start_ms and revise the relative annotations during review."
+  ]
+}

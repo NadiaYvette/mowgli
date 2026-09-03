@@ -142,6 +142,30 @@ Watch the agent fire once at each fault tick (4 and 9) and recover
 next tick, while staying silent through the t6 belief crash it did
 not need to act on.
 
+## Film relation fixtures
+
+`meshes_gold_scene.jsonl` is a candidate, manually reviewable annotation set
+for the locally supplied *Meshes of the Afternoon* encode. It contains no
+media. The accompanying manifest pins the source filename, duration, and
+SHA-256 hash, while `MESHES_GOLD_SCENE_REVIEW.md` records the checklist for
+promoting the candidate to reviewed gold data.
+
+Generate and validate the typed fixture with:
+
+```bash
+python3 film_annotations.py meshes_gold_scene.jsonl \\
+  --mercury meshes_gold_scene_fixture.m \\
+  --module meshes_gold_scene_fixture
+make meshes_gold_scene_demo meshes_gold_scene_test
+./meshes_gold_scene_demo
+./meshes_gold_scene_test
+```
+
+Do not treat the candidate timestamps or interpretations as ground truth until
+they have been checked against the exact local encode. Keep the source media
+outside Git; only the provenance-bearing annotations and manifest belong in
+the repository.
+
 ## Building
 
 ```bash
