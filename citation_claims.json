@@ -106,7 +106,8 @@
     "title": "A framework for neurosymbolic robot action planning using large language models",
     "authors": ["Capitanelli"],
     "year": 2024,
-    "claimed": "Frontiers in Neurorobotics 2024"
+    "doi": "10.3389/fnbot.2024.1342786",
+    "claimed": "Frontiers in Neurorobotics 2024 (open access; DOI added during PDF-fetch pass)"
   },
   "harnad1990": {
     "doc": "ONTOLOGY_RESEARCH.md",

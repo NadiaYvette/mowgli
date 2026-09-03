@@ -36,3 +36,6 @@ __pycache__/
 .venv/
 .venv-*/
 .env
+
+# local reading copies
+pdfs/
