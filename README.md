@@ -2,7 +2,9 @@
 
 **MOWGLI** means **Multimodal Ontology and World Grounding through Logic and Interpretation**.
 
-Ten modules exploring logic through Mercury's type system and determinism checker.
+A collection of Mercury modules exploring logic through Mercury's type system
+and determinism checker, with a small Python boundary for audio and
+diffusion-language-model experiments.
 
 See [LICENSES.md](LICENSES.md) for the category-based licensing policy and
 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for external material,
@@ -147,6 +149,43 @@ a one-shot mechanical event that exogenous faults can override again.
 Watch the agent fire once at each fault tick (4 and 9) and recover
 next tick, while staying silent through the t6 belief crash it did
 not need to act on.
+
+## Film Relations Prototype
+
+`film_episode.m` models annotated film segments as typed observations with
+explicit temporal and cross-modal relations; `film_annotation_fixture.m` and
+`film_annotations.py` validate a JSONL annotation boundary that preserves
+model/annotator provenance. Gold-scene annotations exercise the relation
+layer against real short films (see `FILM_ANNOTATION_FORMAT.md`,
+`FILM_COMPREHENSION_ROADMAP.md`, and the human review procedures in
+`REVIEW-INSTRUCTIONS.md`).
+
+## Citation Verification and PDF Library
+
+Research-document citations are verified by tooling, not memory:
+
+- `tools/verify_citations.py` checks every identifier-bearing citation in the
+  top-level `*.md` docs against Crossref, the arXiv API, and DBLP (raw
+  results: `citation_verification.json`; claims inventory with per-entry
+  notes: `citation_claims.json`). Current status and corrections:
+  [CITATION_VERIFICATION.md](CITATION_VERIFICATION.md).
+- `tools/fetch_pdfs.py` downloads open-access copies of the cited papers into
+  the gitignored `pdfs/`, verifying magic bytes and pinning sha256 + source
+  URL + date in `pdfs/manifest.json`. Entries that are paywalled or
+  bot-blocked are recorded with the reason, never guessed.
+
+## Mirrors
+
+The canonical repository is mirrored to (all branches pushed together):
+
+| Forge | URL |
+|---|---|
+| Sourcehut | https://git.sr.ht/~nadiayvette/mowgli |
+| Framagit | https://framagit.org/NadiaYvette/mowgli |
+| Disroot | https://git.disroot.org/NadiaYvette/mowgli |
+| GitCode | https://gitcode.com/NadiaYvette/mowgli |
+| GitHub | https://github.com/NadiaYvette/mowgli |
+| Radicle | `rad:z2jiunVzMrWnfcefCFN52VRo5mudp` |
 
 ## Building
 
