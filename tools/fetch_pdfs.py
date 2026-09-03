@@ -38,6 +38,7 @@ HARDCODED = {
     "kayalibay2023": "https://proceedings.mlr.press/v211/kayalibay23a/kayalibay23a.pdf",
     "nyga2018grounding": "https://proceedings.mlr.press/v87/nyga18a/nyga18a.pdf",
     "bunt2020iso": "https://aclanthology.org/2020.lrec-1.69.pdf",
+    "ramstead2020": "https://mdpi-res.com/d_attachment/entropy/entropy-22-00889/article_deploy/entropy-22-00889-v2.pdf",
     "kaelbling1998": "https://people.csail.mit.edu/lpk/papers/aij98-pomdp.pdf",
     "pronina2021": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2021.662124/pdf",
     "capitanelli2024": "https://www.frontiersin.org/journals/neurorobotics/articles/10.3389/fnbot.2024.1342786/pdf",
@@ -59,7 +60,6 @@ CLOSED = {
     "milettegagnon2023": "Routledge handbook chapter (paywalled)",
     "friston2010": "Nature Reviews Neuroscience paywall",
     "friston2017": "Elsevier Neuroscience & Biobehavioral Reviews paywall",
-    "ramstead2020": "OA on MDPI but bot-blocked; download manually from https://www.mdpi.com/1099-4300/22/8/889",
 }
 
 
