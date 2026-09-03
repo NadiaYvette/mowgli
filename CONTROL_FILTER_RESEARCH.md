@@ -82,7 +82,8 @@ continuous optimal control.
 ## References
 
 - Kalman, R. E. (1960), “A New Approach to Linear Filtering and Prediction
-  Problems,” *Transactions of the ASME—Journal of Basic Engineering*.
+  Problems,” *Journal of Basic Engineering* 82(1), 35–45.
+  doi:10.1115/1.3662552.
 - Kaelbling, L. P., Littman, M. L., and Cassandra, A. R. (1998), “Planning and
   Acting in Partially Observable Stochastic Domains,” *Artificial
   Intelligence* 101(1–2), 99–134. doi:10.1016/S0004-3702(98)00023-X.
@@ -90,10 +91,12 @@ continuous optimal control.
   Control: Theory, Computation, and Design*.
 - Friston, K. (2010), “The free-energy principle: a unified brain theory?”
   *Nature Reviews Neuroscience* 11, 127–138. doi:10.1038/nrn2787.
-- Friston, K. et al. (2017), “Active Inference and Learning,” *Neuroscience
-  & Biobehavioral Reviews* 68, 862–879.
+- Friston, K., FitzGerald, T., Rigoli, F., Schwartenbeck, P., O’Doherty, J.,
+  and Pezzulo, G. (2016/2017), “Active Inference and Learning,”
+  *Neuroscience & Biobehavioral Reviews* 68, 862–879.
+  doi:10.1016/j.neubiorev.2016.06.022.
 - Kayalibay, B. et al. (2023), “Filter-Aware Model-Predictive Control,”
-  *Proceedings of Machine Learning Research* 211.
+  *Proceedings of Machine Learning Research* 211 (L4DC 2023), 1441–1454.
 
 ## BibTeX
 
@@ -101,7 +104,16 @@ continuous optimal control.
 @article{kalman1960,
   author = {Kalman, Rudolph E.},
   title = {A New Approach to Linear Filtering and Prediction Problems},
-  journal = {Journal of Basic Engineering}, year = {1960}
+  journal = {Journal of Basic Engineering}, volume = {82}, number = {1},
+  pages = {35--45}, year = {1960}, doi = {10.1115/1.3662552}
+}
+@article{friston2017,
+  author = {Friston, Karl and FitzGerald, Thomas and Rigoli, Francesco and
+    Schwartenbeck, Philipp and O'Doherty, John and Pezzulo, Giovanni},
+  title = {Active Inference and Learning},
+  journal = {Neuroscience \& Biobehavioral Reviews},
+  volume = {68}, pages = {862--879}, year = {2017},
+  doi = {10.1016/j.neubiorev.2016.06.022}
 }
 @article{kaelbling1998,
   author = {Kaelbling, Leslie Pack and Littman, Michael L. and Cassandra, Anthony R.},

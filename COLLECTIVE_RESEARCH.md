@@ -257,11 +257,12 @@ beneficial.
 @article{Aumann1976,
   author  = {Aumann, Robert J.},
   title   = {Agreeing to Disagree},
-  journal = {Annals of Statistics},
+  journal = {The Annals of Statistics},
   volume  = {4},
   number  = {6},
   pages   = {1236--1239},
-  year    = {1976}
+  year    = {1976},
+  doi     = {10.1214/aos/1176343654}
 }
 
 @inproceedings{Plaza1989,
@@ -269,7 +270,9 @@ beneficial.
   title     = {Logics of Public Communications},
   booktitle = {Proc.\ 4th Int.\ Symp.\ Methodologies for Intelligent Systems},
   pages     = {201--216},
-  year      = {1989}
+  year      = {1989},
+  note      = {Reprinted in Synthese 169(2), 231--262 (2007),
+               doi:10.1007/s11229-007-9168-7}
 }
 
 @article{GerbrandyGroeneveld1997,
@@ -279,7 +282,8 @@ beneficial.
   volume  = {6},
   number  = {2},
   pages   = {147--169},
-  year    = {1997}
+  year    = {1997},
+  doi     = {10.1023/A:1008222603071}
 }
 
 % ---- coalition power ----
@@ -295,15 +299,15 @@ beneficial.
   doi     = {10.1145/585265.585270}
 }
 
-@incollection{VanderHoekWooldridge2006NPL,
-  author    = {van der Hoek, Wiebe and Wooldridge, Michael},
-  title     = {Cooperation, Knowledge, and Time:
-               Alternating-Time Temporal Epistemic Logic and its Applications},
-  booktitle = {Studia Logica},
-  volume    = {75},
-  number    = {1},
-  pages     = {125--157},
-  year      = {2007}
+@article{VanderHoekWooldridge2003CKT,
+  author  = {van der Hoek, Wiebe and Wooldridge, Michael},
+  title   = {Cooperation, Knowledge, and Time: Alternating-Time Temporal
+            Epistemic Logic and its Applications},
+  journal = {Studia Logica},
+  volume  = {75},
+  number  = {1},
+  pages   = {125--157},
+  year    = {2003}
 }
 
 @inproceedings{RobertsVanderHoekWooldridge2007,

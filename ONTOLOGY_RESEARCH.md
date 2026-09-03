@@ -297,13 +297,15 @@ published treatment connecting those two literatures specifically.
   year      = {2007/2018}
 }
 
-@inproceedings{Devillers2025GroundOnto,
-  author    = {{Various authors}},
-  title     = {An approach for grounding ontologies in raw data using
-               foundational ontologies},
-  booktitle = {Information Systems Journal},
-  year      = {2012},
-  note      = {Survey of raw-data-to-BFO grounding pipelines}
+@article{Fiorini2013GroundOnto,
+  author  = {Fiorini, Sergio and Abel, Mark and Scherer, Stefano},
+  title   = {An approach for grounding ontologies in raw data using
+             foundational ontologies},
+  journal = {Information Systems},
+  volume  = {38}, number = {5}, pages = {784--799},
+  year    = {2013},
+  doi     = {10.1016/j.is.2012.11.013},
+  note    = {Survey of raw-data-to-BFO grounding pipelines}
 }
 
 % ---- Ring 3: foundational ontologies ----
@@ -316,13 +318,17 @@ published treatment connecting those two literatures specifically.
   year      = {2020}
 }
 
-@techreport{GangemiMasolo2002DOLCE,
-  author      = {Gangemi, Aldo and Guarino, Nicola and Masolo, Claudio and
-                 Oltramari, Alessandro and Schneider, Luc},
-  title       = {Sweetening Ontologies with {DOLCE}},
-  institution = {LOA-CNR, Trento},
-  year        = {2002},
-  note        = {AIST/KRDL workshop on Knowledge Engineering, SIGMA}
+@inproceedings{GangemiMasolo2002DOLCE,
+  author    = {Gangemi, Aldo and Guarino, Nicola and Masolo, Claudio and
+               Oltramari, Alessandro and Schneider, Luc},
+  title     = {Sweetening Ontologies with {DOLCE}},
+  booktitle = {Knowledge Engineering and Knowledge Management: Ontologies
+               and the Semantic Web (EKAW 2002), Lecture Notes in Computer
+               Science 2473},
+  publisher = {Springer},
+  pages     = {166--181},
+  year      = {2002},
+  doi       = {10.1007/3-540-45810-7_18}
 }
 
 @book{Rescher1996Process,

@@ -244,9 +244,11 @@ change the underlying verified result.
   Capabilities in Speech Language Models,” arXiv:2507.20091.
 - Pronina et al., “Bridging the Gap Between Prosody and Pragmatics,” *Frontiers
   in Psychology* 12 (2021), 662124, doi:10.3389/fpsyg.2021.662124.
-- Bunt et al., “The ISO Standard for Dialogue Act Annotation, Second Edition,”
-  LREC 2020; see ISO 24617-2 for multidimensional spoken and multimodal
-  dialogue-act annotation.
+- Bunt et al., “The ISO Standard for Dialogue Act Annotation, Second
+  Edition,” LREC 2020, 549–558,
+  https://aclanthology.org/2020.lrec-1.69/
+  (doi:10.18653/v1/2020.lrec-1.69); see ISO 24617-2 for multidimensional
+  spoken and multimodal dialogue-act annotation.
 - Nyga et al., “Grounding Robot Plans from Natural Language Instructions,”
   PMLR 87 (2018).
 - Capitanelli et al., “A framework for neurosymbolic robot action planning
@@ -276,14 +278,32 @@ change the underlying verified result.
   author = {Gong, Shansan and Meng, Giwon and Li, Ye and Wu, Zhaopeng and
     Li, Xiaoni and Wang, Shizhuo and Hovy, Eduard and Huang, Xin},
   title = {DiffuSeq: Sequence to Sequence Text Generation with Diffusion Models},
-  journal = {arXiv preprint arXiv:2210.08933},
+  journal = {arXiv preprint arXiv:2210.08933 (published at ICLR 2023)},
   year = {2022}
 }
 @article{li2025lavida,
   author = {Li, Shufan and others},
   title = {LaViDa: A Large Diffusion Language Model for Multimodal Understanding},
   journal = {arXiv preprint arXiv:2505.16839},
-  year = {2025}
+  year = {2025},
+  doi = {10.48550/arXiv.2505.16839}
+}
+@inproceedings{bunt2020iso,
+  author = {Bunt, Harry and Petukhova, Volha and Gilmartin, Emer and
+    Pelachaud, Catherine and Fang, Alex and Keizer, Simon and others},
+  title = {The ISO Standard for Dialogue Act Annotation, Second Edition},
+  booktitle = {Proceedings of the Twelfth Language Resources and Evaluation
+    Conference (LREC)},
+  pages = {549--558}, year = {2020},
+  doi = {10.18653/v1/2020.lrec-1.69}
+}
+@article{qian2025prosodylm,
+  author = {Qian, Cheng and others},
+  title = {ProsodyLM: Uncovering the Emerging Prosody Processing Capabilities
+    in Speech Language Models},
+  journal = {arXiv preprint arXiv:2507.20091},
+  year = {2025},
+  doi = {10.48550/arXiv.2507.20091}
 }
 @inproceedings{kim2024usdm,
   author = {Kim, Hyungjoo and others},

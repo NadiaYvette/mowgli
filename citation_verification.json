@@ -1,0 +1,465 @@
+{
+  "kaelbling1998": {
+    "key": "kaelbling1998",
+    "doc": "CONTROL_FILTER_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Planning and acting in partially observable stochastic domains",
+    "claimed_year": 1998,
+    "claimed_id": "10.1016/S0004-3702(98)00023-X",
+    "notes": [],
+    "found_title": "Planning and acting in partially observable stochastic domains",
+    "found_year": 1998,
+    "found_authors": [
+      "Kaelbling",
+      "Littman",
+      "Cassandra"
+    ],
+    "sim": 1.0
+  },
+  "friston2010": {
+    "key": "friston2010",
+    "doc": "CONTROL_FILTER_RESEARCH.md + ONTOLOGY_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "The free-energy principle: a unified brain theory?",
+    "claimed_year": 2010,
+    "claimed_id": "10.1038/nrn2787",
+    "notes": [],
+    "found_title": "The free-energy principle: a unified brain theory?",
+    "found_year": 2010,
+    "found_authors": [
+      "Friston"
+    ],
+    "sim": 1.0
+  },
+  "friston2017": {
+    "key": "friston2017",
+    "doc": "CONTROL_FILTER_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Active inference and learning",
+    "claimed_year": 2017,
+    "claimed_id": "10.1016/j.neubiorev.2016.06.022",
+    "notes": [],
+    "found_title": "Active inference and learning",
+    "found_year": 2016,
+    "found_authors": [
+      "Friston",
+      "FitzGerald",
+      "Rigoli",
+      "Schwartenbeck",
+      "O⿿Doherty",
+      "Pezzulo"
+    ],
+    "sim": 1.0
+  },
+  "kayalibay2023": {
+    "key": "kayalibay2023",
+    "doc": "CONTROL_FILTER_RESEARCH.md",
+    "status": "verified-dblp",
+    "claimed_title": "Filter-Aware Model-Predictive Control",
+    "claimed_year": 2023,
+    "claimed_id": null,
+    "notes": [],
+    "sim": 1.0,
+    "found_title": "Filter-Aware Model-Predictive Control.",
+    "found_year": 2023,
+    "found_authors": [
+      "Baris Kayalibay",
+      "Atanas Mirchev",
+      "Ahmed Agha",
+      "Patrick van der Smagt",
+      "Justin Bayer"
+    ],
+    "found_venue": "L4DC vol  pp 1441-1454",
+    "found_doi": "",
+    "found_url": "https://dblp.org/rec/conf/l4dc/KayalibayMASB23"
+  },
+  "kalman1960": {
+    "key": "kalman1960",
+    "doc": "CONTROL_FILTER_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "A New Approach to Linear Filtering and Prediction Problems",
+    "claimed_year": 1960,
+    "claimed_id": "10.1115/1.3662552",
+    "notes": [],
+    "found_title": "A New Approach to Linear Filtering and Prediction Problems",
+    "found_year": 1960,
+    "found_authors": [
+      "Kalman"
+    ],
+    "sim": 1.0
+  },
+  "li2022diffusionlm": {
+    "key": "li2022diffusionlm",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-arxiv",
+    "claimed_title": "Diffusion-LM Improves Controllable Text Generation",
+    "claimed_year": 2022,
+    "claimed_id": "2205.14217",
+    "notes": [],
+    "found_title": "Diffusion-LM Improves Controllable Text Generation",
+    "found_year": 2022,
+    "found_authors": [
+      "Xiang Lisa Li",
+      "John Thickstun",
+      "Ishaan Gulrajani",
+      "Percy Liang",
+      "Tatsunori B. Hashimoto"
+    ],
+    "sim": 1.0
+  },
+  "gong2022diffuseq": {
+    "key": "gong2022diffuseq",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-arxiv",
+    "claimed_title": "DiffuSeq: Sequence to Sequence Text Generation with Diffusion Models",
+    "claimed_year": 2022,
+    "claimed_id": "2210.08933",
+    "notes": [],
+    "found_title": "DiffuSeq: Sequence to Sequence Text Generation with Diffusion Models",
+    "found_year": 2022,
+    "found_authors": [
+      "Shansan Gong",
+      "Mukai Li",
+      "Jiangtao Feng",
+      "Zhiyong Wu",
+      "Lingpeng Kong"
+    ],
+    "sim": 1.0
+  },
+  "li2025lavida": {
+    "key": "li2025lavida",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-arxiv",
+    "claimed_title": "LaViDa: A Large Diffusion Language Model for Multimodal Understanding",
+    "claimed_year": 2025,
+    "claimed_id": "2505.16839",
+    "notes": [],
+    "found_title": "LaViDa: A Large Diffusion Language Model for Multimodal Understanding",
+    "found_year": 2025,
+    "found_authors": [
+      "Shufan Li",
+      "Konstantinos Kallidromitis",
+      "Hritik Bansal",
+      "Akash Gokul",
+      "Yusuke Kato",
+      "Kazuki Kozuka",
+      "Jason Kuen",
+      "Zhe Lin",
+      "Kai-Wei Chang",
+      "Aditya Grover"
+    ],
+    "sim": 1.0
+  },
+  "kim2024usdm": {
+    "key": "kim2024usdm",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-arxiv",
+    "claimed_title": "Paralinguistics-Aware Speech-Empowered Large Language Models for Natural Conversation",
+    "claimed_year": 2024,
+    "claimed_id": "2402.05706",
+    "notes": [],
+    "found_title": "Paralinguistics-Aware Speech-Empowered Large Language Models for Natural Conversation",
+    "found_year": 2024,
+    "found_authors": [
+      "Heeseung Kim",
+      "Soonshin Seo",
+      "Kyeongseok Jeong",
+      "Ohsung Kwon",
+      "Soyoon Kim",
+      "Jungwhan Kim",
+      "Jaehong Lee",
+      "Eunwoo Song",
+      "Myungwoo Oh",
+      "Jung-Woo Ha",
+      "Sungroh Yoon",
+      "Kang Min Yoo"
+    ],
+    "sim": 1.0
+  },
+  "qian2025prosodylm": {
+    "key": "qian2025prosodylm",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-arxiv",
+    "claimed_title": "ProsodyLM: Uncovering the Emerging Prosody Processing Capabilities in Speech Language Models",
+    "claimed_year": 2025,
+    "claimed_id": "2507.20091",
+    "notes": [],
+    "found_title": "ProsodyLM: Uncovering the Emerging Prosody Processing Capabilities in Speech Language Models",
+    "found_year": 2025,
+    "found_authors": [
+      "Kaizhi Qian",
+      "Xulin Fan",
+      "Junrui Ni",
+      "Slava Shechtman",
+      "Mark Hasegawa-Johnson",
+      "Chuang Gan",
+      "Yang Zhang"
+    ],
+    "sim": 1.0
+  },
+  "pronina2021": {
+    "key": "pronina2021",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Bridging the Gap Between Prosody and Pragmatics",
+    "claimed_year": 2021,
+    "claimed_id": "10.3389/fpsyg.2021.662124",
+    "notes": [],
+    "found_title": "Bridging the Gap Between Prosody and Pragmatics: The Acquisition of Pragmatic Prosody in the Preschool Years and Its Relation With Theory of Mind",
+    "found_year": 2021,
+    "found_authors": [
+      "Pronina",
+      "Hübscher",
+      "Vilà-Giménez",
+      "Prieto"
+    ],
+    "sim": 1.0
+  },
+  "bunt2020iso": {
+    "key": "bunt2020iso",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-dblp",
+    "claimed_title": "The ISO Standard for Dialogue Act Annotation, Second Edition",
+    "claimed_year": 2020,
+    "claimed_id": null,
+    "notes": [],
+    "sim": 1.0,
+    "found_title": "The ISO Standard for Dialogue Act Annotation, Second Edition.",
+    "found_year": 2020,
+    "found_authors": [
+      "Harry Bunt",
+      "Volha Petukhova",
+      "Emer Gilmartin",
+      "Catherine Pelachaud",
+      "Alex Chengyu Fang",
+      "Simon Keizer",
+      "Laurent Prévot 0001"
+    ],
+    "found_venue": "LREC vol  pp 549-558",
+    "found_doi": "",
+    "found_url": "https://dblp.org/rec/conf/lrec/BuntPGPFKP20"
+  },
+  "nyga2018grounding": {
+    "key": "nyga2018grounding",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-dblp",
+    "claimed_title": "Grounding Robot Plans from Natural Language Instructions with Incomplete World Knowledge",
+    "claimed_year": 2018,
+    "claimed_id": null,
+    "notes": [],
+    "sim": 1.0,
+    "found_title": "Grounding Robot Plans from Natural Language Instructions with Incomplete World Knowledge.",
+    "found_year": 2018,
+    "found_authors": [
+      "Daniel Nyga",
+      "Subhro Roy",
+      "Rohan Paul",
+      "Daehyung Park",
+      "Mihai Pomarlan",
+      "Michael Beetz",
+      "Nicholas Roy"
+    ],
+    "found_venue": "CoRL vol  pp 714-723",
+    "found_doi": "",
+    "found_url": "https://dblp.org/rec/conf/corl/NygaRPPPBR18"
+  },
+  "capitanelli2024": {
+    "key": "capitanelli2024",
+    "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
+    "status": "verified-dblp",
+    "claimed_title": "A framework for neurosymbolic robot action planning using large language models",
+    "claimed_year": 2024,
+    "claimed_id": null,
+    "notes": [],
+    "sim": 1.0,
+    "found_title": "A framework for neurosymbolic robot action planning using large language models.",
+    "found_year": 2024,
+    "found_authors": [
+      "Alessio Capitanelli",
+      "Fulvio Mastrogiovanni"
+    ],
+    "found_venue": "Frontiers Neurorobotics vol 18 pp",
+    "found_doi": "10.3389/FNBOT.2024.1342786",
+    "found_url": "https://dblp.org/rec/journals/finr/CapitanelliM24"
+  },
+  "harnad1990": {
+    "key": "harnad1990",
+    "doc": "ONTOLOGY_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "The symbol grounding problem",
+    "claimed_year": 1990,
+    "claimed_id": "10.1016/0167-2789(90)90087-6",
+    "notes": [],
+    "found_title": "The symbol grounding problem",
+    "found_year": 1990,
+    "found_authors": [
+      "Harnad"
+    ],
+    "sim": 1.0
+  },
+  "ramstead2020": {
+    "key": "ramstead2020",
+    "doc": "ONTOLOGY_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Is the Free-Energy Principle a Formal Theory of Semantics? From Variational Density Dynamics to Attractive Discrete States",
+    "claimed_year": 2020,
+    "claimed_id": "10.3390/e22080889",
+    "notes": [],
+    "found_title": "Is the Free-Energy Principle a Formal Theory of Semantics? From Variational Density Dynamics to Neural and Phenotypic Representations",
+    "found_year": 2020,
+    "found_authors": [
+      "Ramstead",
+      "Friston",
+      "Hipólito"
+    ],
+    "sim": 0.846
+  },
+  "milettegagnon2023": {
+    "key": "milettegagnon2023",
+    "doc": "ONTOLOGY_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "An active inference approach to semiotics: A variational theory of signs",
+    "claimed_year": 2023,
+    "claimed_id": "10.4324/9781003051817-5",
+    "notes": [],
+    "found_title": "An active inference approach to semiotics",
+    "found_year": 2022,
+    "found_authors": [
+      "Milette-Gagnon",
+      "Veissière",
+      "Friston",
+      "Ramstead"
+    ],
+    "sim": 1.0
+  },
+  "fiorini2013": {
+    "key": "fiorini2013",
+    "doc": "ONTOLOGY_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "An approach for grounding ontologies in raw data using foundational ontologies",
+    "claimed_year": 2013,
+    "claimed_id": "10.1016/j.is.2012.11.013",
+    "notes": [],
+    "found_title": "An approach for grounding ontologies in raw data using foundational ontology",
+    "found_year": 2013,
+    "found_authors": [
+      "Fiorini",
+      "Abel",
+      "Scherer"
+    ],
+    "sim": 1.0
+  },
+  "gangemi2002dolce": {
+    "key": "gangemi2002dolce",
+    "doc": "ONTOLOGY_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Sweetening Ontologies with DOLCE",
+    "claimed_year": 2002,
+    "claimed_id": "10.1007/3-540-45810-7_18",
+    "notes": [],
+    "found_title": "Sweetening Ontologies with DOLCE",
+    "found_year": 2002,
+    "found_authors": [
+      "Gangemi",
+      "Guarino",
+      "Masolo",
+      "Oltramari",
+      "Schneider"
+    ],
+    "sim": 1.0
+  },
+  "halpern1990": {
+    "key": "halpern1990",
+    "doc": "COLLECTIVE_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Knowledge and common knowledge in a distributed environment",
+    "claimed_year": 1990,
+    "claimed_id": "10.1145/79147.79161",
+    "notes": [],
+    "found_title": "Knowledge and common knowledge in a distributed environment",
+    "found_year": 1990,
+    "found_authors": [
+      "Halpern",
+      "Moses"
+    ],
+    "sim": 1.0
+  },
+  "aumann1976": {
+    "key": "aumann1976",
+    "doc": "COLLECTIVE_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Agreeing to disagree",
+    "claimed_year": 1976,
+    "claimed_id": "10.1214/aos/1176343654",
+    "notes": [],
+    "found_title": "Agreeing to Disagree",
+    "found_year": 1976,
+    "found_authors": [
+      "Aumann"
+    ],
+    "sim": 1.0
+  },
+  "plaza1989": {
+    "key": "plaza1989",
+    "doc": "COLLECTIVE_RESEARCH.md",
+    "status": "not-found",
+    "claimed_title": "Logics of public communications",
+    "claimed_year": 1989,
+    "claimed_id": null,
+    "notes": [
+      "no identifier; DBLP and Crossref search found no matching record — needs manual check"
+    ]
+  },
+  "gerbrandy1997": {
+    "key": "gerbrandy1997",
+    "doc": "COLLECTIVE_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Reasoning about information change",
+    "claimed_year": 1997,
+    "claimed_id": "10.1023/A:1008222603071",
+    "notes": [],
+    "found_title": "Reasoning about Information Change",
+    "found_year": 1997,
+    "found_authors": [
+      "Gerbrandy",
+      "Groeneveld"
+    ],
+    "sim": 1.0
+  },
+  "alur2002": {
+    "key": "alur2002",
+    "doc": "COLLECTIVE_RESEARCH.md",
+    "status": "verified-doi",
+    "claimed_title": "Alternating-time temporal logic",
+    "claimed_year": 2002,
+    "claimed_id": "10.1145/585265.585270",
+    "notes": [],
+    "found_title": "Alternating-time temporal logic",
+    "found_year": 2002,
+    "found_authors": [
+      "Alur",
+      "Henzinger",
+      "Kupferman"
+    ],
+    "sim": 1.0
+  },
+  "vanderhoek2003ckt": {
+    "key": "vanderhoek2003ckt",
+    "doc": "COLLECTIVE_RESEARCH.md",
+    "status": "verified-dblp",
+    "claimed_title": "Cooperation, knowledge, and time: Alternating-time temporal epistemic logic and its applications",
+    "claimed_year": 2003,
+    "claimed_id": null,
+    "notes": [],
+    "sim": 1.0,
+    "found_title": "Time, Knowledge, and Cooperation: Alternating-Time Temporal Epistemic Logic and Its Applications.",
+    "found_year": 2002,
+    "found_authors": [
+      "Michael J. Wooldridge",
+      "Wiebe van der Hoek"
+    ],
+    "found_venue": "COORDINATION vol  pp 4",
+    "found_doi": "10.1007/3-540-46000-4_3",
+    "found_url": "https://dblp.org/rec/conf/coordination/WooldridgeH02"
+  }
+}
