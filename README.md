@@ -176,12 +176,14 @@ Research-document citations are verified by tooling, not memory:
 
 ## Mirrors
 
-The canonical repository is mirrored to (all branches pushed together):
+**Framagit is the canonical URL** (see the companion *gen-ai-limits* document,
+which cites MOWGLI by its framagit link); all branches are pushed to every
+mirror together:
 
 | Forge | URL |
 |---|---|
+| Framagit *(canonical)* | https://framagit.org/NadiaYvette/mowgli |
 | Sourcehut | https://git.sr.ht/~nadiayvette/mowgli |
-| Framagit | https://framagit.org/NadiaYvette/mowgli |
 | Disroot | https://git.disroot.org/NadiaYvette/mowgli |
 | GitCode | https://gitcode.com/NadiaYvette/mowgli |
 | GitHub | https://github.com/NadiaYvette/mowgli |

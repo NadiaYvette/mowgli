@@ -266,21 +266,18 @@
   "capitanelli2024": {
     "key": "capitanelli2024",
     "doc": "DIFFUSION_SPEECH_LOGIC_RESEARCH.md",
-    "status": "verified-dblp",
+    "status": "verified-doi",
     "claimed_title": "A framework for neurosymbolic robot action planning using large language models",
     "claimed_year": 2024,
-    "claimed_id": null,
+    "claimed_id": "10.3389/fnbot.2024.1342786",
     "notes": [],
-    "sim": 1.0,
-    "found_title": "A framework for neurosymbolic robot action planning using large language models.",
+    "found_title": "A framework for neurosymbolic robot action planning using large language models",
     "found_year": 2024,
     "found_authors": [
-      "Alessio Capitanelli",
-      "Fulvio Mastrogiovanni"
+      "Capitanelli",
+      "Mastrogiovanni"
     ],
-    "found_venue": "Frontiers Neurorobotics vol 18 pp",
-    "found_doi": "10.3389/FNBOT.2024.1342786",
-    "found_url": "https://dblp.org/rec/journals/finr/CapitanelliM24"
+    "sim": 1.0
   },
   "harnad1990": {
     "key": "harnad1990",

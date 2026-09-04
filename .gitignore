@@ -39,3 +39,10 @@ __pycache__/
 
 # local reading copies
 pdfs/
+
+# worktrees and local session artifacts
+.claude/
+
+# test films (local copies, never distributed)
+*.webm
+*.mp4
